@@ -1,13 +1,13 @@
 " An example for a vimrc file.
 "
-" Maintainer:   Bram Moolenaar <Bram@vim.org>
-" Last change:  2006 Nov 16
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last change:	2006 Nov 16
 "
 " To use it, copy it to
 "     for Unix and OS/2:  ~/.vimrc
-"             for Amiga:  s:.vimrc
+"	      for Amiga:  s:.vimrc
 "  for MS-DOS and Win32:  $VIM\_vimrc
-"           for OpenVMS:  sys$login:.vimrc
+"	    for OpenVMS:  sys$login:.vimrc
 
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
@@ -24,14 +24,14 @@ set backspace=indent,eol,start
 " set noswapfile
 
 if has("vms")
-  set nobackup          " do not keep a backup file, use versions instead
+  set nobackup		" do not keep a backup file, use versions instead
 else
-  set backup            " keep a backup file
+  set backup		" keep a backup file
 endif
-set history=50          " keep 50 lines of command line history
-set ruler                   " show the cursor position all the time
-set showcmd                 " display incomplete commands
-set incsearch           " do incremental searching
+set history=50		" keep 50 lines of command line history
+set ruler		    " show the cursor position all the time
+set showcmd		    " display incomplete commands
+set incsearch		" do incremental searching
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -77,14 +77,14 @@ if has("autocmd")
 
 else
 
-  set autoindent                " always set autoindenting on
+  set autoindent		" always set autoindenting on
 
 endif " has("autocmd")
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
 command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-                \ | wincmd p | diffthis
+	 	\ | wincmd p | diffthis
 
 "colo desert
 colo delek
@@ -148,19 +148,19 @@ let $CSCOPE_DB=$PWD . "/cscope.out"
 let $CTAGS_DB=$PWD . "/tags"
 
 if has("cscope")
-        let current = $PWD
-        let num = 1
+	let current = $PWD
+	let num = 1
 
-        while num < 20
-                if filereadable(current . "/cscope.out")
-                        let $CSCOPE_DB = current . "/cscope.out"
-                        let $CTAGS_DB = current . "/tags"
-                        break
-                else
-                        let current = current . "/.."
-                        let num = num + 1
-                endif
-        endwhile
+	while num < 20
+		if filereadable(current . "/cscope.out")
+			let $CSCOPE_DB = current . "/cscope.out"
+			let $CTAGS_DB = current . "/tags"
+			break
+		else
+			let current = current . "/.."
+			let num = num + 1
+		endif
+	endwhile
 endif
 
 set csprg=/usr/bin/cscope
@@ -175,14 +175,16 @@ set csverb
 match Todo /\s\+$/
 
 set cul " highlight current cusor line
-set bdir=~/tmp
-set dir=~/tmp/
+set bdir=/tmp
+set dir=/tmp/
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""" New File Predefined Text """""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 在打开的文件中使用:set ft判断文件类，使用如下命令添加文件类型
+" au BufRead,BufNewFile *.txt       setfiletype text
 "新建.c,.h,.sh,.java文件，自动插入文件头
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.rb,*.java,*.py exec ":call SetTitle()"
+autocmd BufNewFile *.cpp,*.[ch],*.sh,*.rb,*.java,*.py,CMakeLists.txt exec ":call SetTitle()"
 ""定义函数SetTitle，自动插入文件头
 func SetTitle()
     "如果文件类型为.sh文件
@@ -194,6 +196,12 @@ func SetTitle()
         call append(line(".")+3, "# Version:     1.0.0")
         call append(line(".")+4, "# Description: ")
         call append(line(".")+5, "")
+    elseif &filetype == 'cmake'
+        call setline(1, "cmake_minimum_required(VERSION 3.5)")
+        call append(line("."), "")
+        call append(line(".")+1, "project()")
+        call append(line(".")+2, "")
+        call append(line(".")+3, "add_execute()")
     elseif &filetype == 'python'
         call setline(1,          "#!/usr/bin/env python3")
         call append(line("."),   "# -*- coding: utf-8 -*-")
@@ -216,36 +224,44 @@ func SetTitle()
     elseif &filetype == 'mkd'
         call setline(1,"<head><meta charset=\"UTF-8\"></head>")
     else
-        call setline(1,          "/*************************************************************************")
+        call setline(1,          "/******************************************************")
         call append(line("."),   " * File Name:    ".expand("%"))
         call append(line(".")+1, " * Author:       basilguo@163.com")
         call append(line(".")+2, " * Created Time: ".strftime("%Y-%m-%d %I:%M:%S"))
         call append(line(".")+3, " * Description:  ")
-        call append(line(".")+4, " ************************************************************************/")
+        call append(line(".")+4, " ******************************************************/")
         call append(line(".")+5, "")
     endif
     if expand("%:e") == 'cpp'
         call append(line(".")+6, "#include <iostream>")
-        call append(line(".")+7, "using namespace std;")
-        call append(line(".")+8, "")
+        call append(line(".")+7, "#include <string>")
+        call append(line(".")+8, "#include <vector>")
+        call append(line(".")+9, "#include <set>")
+        call append(line(".")+10, "#include <map>")
+        call append(line(".")+11, "#include <algorithm>")
+        call append(line(".")+12, "using namespace std;")
+        call append(line(".")+13, "")
     endif
     if &filetype == 'c'
         call append(line(".")+6, "#include <stdio.h>")
         call append(line(".")+7, "#include <stdlib.h>")
-        call append(line(".")+8, "")
-        " call append(line(".")+9, "int main(void)")
-        " call append(line(".")+10, "{")
-        " call append(line(".")+11, "    return 0;")
-        " call append(line(".")+12, "}")
+        call append(line(".")+8, "#include \"utils.h\"")
+        call append(line(".")+9, "")
+        call append(line(".")+10, "int main(int argc, char *argv[])")
+        call append(line(".")+11, "{")
+        call append(line(".")+12, "    return 0;")
+        call append(line(".")+13, "}")
     endif
     if expand("%:e") == 'h'
-        call append(line(".")+5, "#ifndef _".toupper(expand("%:r"))."_H")
-        call append(line(".")+6, "#define _".toupper(expand("%:r"))."_H")
-        call append(line(".")+7, "#endif")
+        call append(line(".")+5, "#ifndef ".toupper(expand("%:r"))."_H")
+        call append(line(".")+6, "#define ".toupper(expand("%:r"))."_H")
+        call append(line(".")+7, "#endif // ".toupper(expand("%:r"))."_H")
     endif
     if &filetype == 'java'
-        call append(line(".")+5,"public class ".expand("%:r")." {")
-        call append(line(".")+6,"}")
+        call append(line(".")+5, "package chap7_hiding;")
+        call append(line(".")+6, "")
+        call append(line(".")+7,"public class ".expand("%:r")." {")
+        call append(line(".")+8,"}")
     endif
 endfunc
 autocmd BufNewFile * normal G

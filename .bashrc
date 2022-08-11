@@ -9,8 +9,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 # for git prompt, stolen from bash wiki.
-if [ -f .git_prompt.sh ]; then
-    . .git_prompt.sh
+if [ -f ~/.git_prompt.sh ]; then
+    . ~/.git_prompt.sh
 fi
 
 # Stolen from zhanghuitao for cscope and ctags.
@@ -55,6 +55,10 @@ function makelinuxtags()
 
 ################ FROM https://hub.fastgit.org/tomnomnom/dotfiles/blob/master/.bashrc #######################
 
+# Modify the displayed title
+# echo -ne '\033]0;New Title\a'
+echo -ne '\033]0;Home sma\a'
+
 # History control
 HISTCONTROL=ignoredups:ignorespace
 HISTSIZE=100000
@@ -62,8 +66,6 @@ HISTFILESIZE=2000000
 shopt -s histappend
 
 # COLOURS! YAAAY!
-export TERM=xterm-256color
-# Obviously.
 export EDITOR=/usr/bin/vim
 export PATH=.:${PATH}
 # Personal binaries
@@ -72,6 +74,16 @@ export PATH=${PATH}:~/bin:~/.local/bin:~/etc/scripts
 # I'd quite like for Go to work please.
 export PATH=${PATH}:/usr/local/go/bin
 export GOPATH=~
+
+# For RUST
+export PATH="${PATH}:$HOME/.cargo/bin"
+
+function zhi() {
+    echo -e "\033[0;31m[EXEC]: $@\033[0m"
+    echo
+    `"$@" > /dev/null`
+    echo -e "\033[0;31m[DONE]: $@\033[0m"
+}
 
 # Change up a variable number of directories
 # E.g:
@@ -106,7 +118,8 @@ function virev {
         commit="HEAD"
     fi
     rootdir=$(git rev-parse --show-toplevel)
-    sourceFiles=$(git show --name-only --pretty="format:" ${commit} | grep -v '^$')    toOpen=""
+    sourceFiles=$(git show --name-only --pretty="format:" ${commit} | grep -v '^$')
+    toOpen=""
     for file in ${sourceFiles}; do
         file="${rootdir}/${file}"
         if [ -e "${file}" ]; then
@@ -180,9 +193,6 @@ fi
 # Patent Pending Prompt
 export PS1="${undblu}${nameBGC}${nameC}\u${atC}@${hostC}\h${normalC}:${pathC}\w${gitC}\$(gitPrompt)${pointerC}${normalC}\n\$ "
 
-# colorful less
-# export LESS='-R --use-color -Dd+r$Du+b'
-
 # colorful MAN pages
 export LESS_TERMCAP_md=$'\e[01;31m'   # Start bold effect (double-bright).
 export LESS_TERMCAP_me=$'\e[0m'       # Stop bold effect.
@@ -195,18 +205,52 @@ export LESS_TERMCAP_se=$'\e[0m'       # Stop stand-out effect (similar to revers
 # export PARGER="most"
 ## export PARGER="/usr/bin/most -s"
 
+if [ 'pts' != `tty | cut -d'/' -f3` ] # not ssh connection.
+then
+    ### fcitx
+    export GTX_IM_MODULE=fcitx
+    export QT_IM_MODULE=fcitx
+    export XMODIFIERS="@im=fcitx"
+    fcitx-autostart
+fi
+
 # alias
+alias cdbin="cd /home/sma/sma-srv/debug/x86_64-linux-gnu/bin"
+alias cdacs="cd /home/sma/sma-srv"
 alias biggest="du -h --max-depth=1 | sort -h"
 alias cdcpp='cd /home/basil/code/cpp/cpp_server_develop'
 alias diff='diff --color=auto'
 alias follow="tail -f -n +1"
-alias gg='git grep -ni'
 alias grep='grep --color=auto'
 alias ip='ip --color=auto'
-alias ls='/bin/ls -F --color=auto'
 alias ll='ls -ahl'
+alias ls='/bin/ls -F --color=auto'
 alias phpunit='phpunit --colors'
+alias py3='python3'
 alias remake='make clean; make'
 alias rmtags='rm cscope.* tags'
 alias vimpress="VIMENV=talk vim"
 alias vi='/usr/bin/vim'
+alias tn='tmux new-session -s'
+alias ts='tn'
+alias ta='tmux attach'
+alias tt='tmux attach -t'
+# browser
+alias ff="firefox"
+alias edge='microsoft-edge-stable'
+. "$HOME/.cargo/env"
+
+# current working directory
+alias cdd='cd /home/basil/code/c/test/ipc'
+
+# tmux
+alias ta='tmux attach'
+alias ts='tmux new-session -s'
+alias tls='tmux ls'
+# Git
+alias gpom='git push -u origin master'
+alias gs='git status'
+alias gg='git grep -ni'
+alias g='git'
+alias cdd='cd /home/basil/code/c/projects'
+alias cdd='cd /home/basil/code/c/projects/c_interfaces_and_implementations_techniques_for_creating_reusable_software'
