@@ -76,7 +76,10 @@ export PATH=${PATH}:/usr/local/go/bin
 export GOPATH=~
 
 # For RUST
-export PATH="${PATH}:$HOME/.cargo/bin"
+if [ -f $HOME/.cargo ]; then
+    export PATH="${PATH}:$HOME/.cargo/bin"
+    . "$HOME/.cargo/env"
+fi
 
 function zhi() {
     echo -e "\033[0;31m[EXEC]: $@\033[0m"
@@ -238,7 +241,6 @@ alias tt='tmux attach -t'
 # browser
 alias ff="firefox"
 alias edge='microsoft-edge-stable'
-. "$HOME/.cargo/env"
 
 # current working directory
 alias cdd='cd /home/basil/code/c/test/ipc'
