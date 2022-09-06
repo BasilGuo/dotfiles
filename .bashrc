@@ -56,7 +56,7 @@ function makelinuxtags()
 ################ FROM https://hub.fastgit.org/tomnomnom/dotfiles/blob/master/.bashrc #######################
 
 # The displayed title
-name="\033]0;Home `whoami`\a"
+name="\033]0;`whoami`@`hostname`\a"
 echo -ne ${name}
 
 # History control
