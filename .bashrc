@@ -76,10 +76,7 @@ export PATH=${PATH}:/usr/local/go/bin
 export GOPATH=~
 
 # For RUST
-if [ -f $HOME/.cargo ]; then
-    export PATH="${PATH}:$HOME/.cargo/bin"
-    . "$HOME/.cargo/env"
-fi
+export PATH="${PATH}:$HOME/.cargo/bin"
 
 function zhi() {
     echo -e "\033[0;31m[EXEC]: $@\033[0m"
@@ -218,6 +215,12 @@ then
 fi
 
 # alias
+if [ '16.04' == `lsb_release -r | cut -f 2` ]
+then
+    alias ip='ip --color'
+else
+    alias ip='ip --color=auto'
+fi
 alias cdbin="cd /home/sma/sma-srv/debug/x86_64-linux-gnu/bin"
 alias cdacs="cd /home/sma/sma-srv"
 alias biggest="du -h --max-depth=1 | sort -h"
@@ -225,7 +228,6 @@ alias cdcpp='cd /home/basil/code/cpp/cpp_server_develop'
 alias diff='diff --color=auto'
 alias follow="tail -f -n +1"
 alias grep='grep --color=auto'
-alias ip='ip --color=auto'
 alias ll='ls -ahl'
 alias ls='/bin/ls -F --color=auto'
 alias phpunit='phpunit --colors'
@@ -241,6 +243,9 @@ alias tt='tmux attach -t'
 # browser
 alias ff="firefox"
 alias edge='microsoft-edge-stable'
+if [ -f $HOME/.cargo ]; then
+    . "$HOME/.cargo/env"
+fi
 
 # current working directory
 alias cdd='cd /home/basil/code/c/test/ipc'
