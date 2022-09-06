@@ -55,8 +55,7 @@ function makelinuxtags()
 
 ################ FROM https://hub.fastgit.org/tomnomnom/dotfiles/blob/master/.bashrc #######################
 
-# Modify the displayed title
-# echo -ne '\033]0;New Title\a'
+# The displayed title
 echo -ne '\033]0;Home sma\a'
 
 # History control
@@ -77,6 +76,11 @@ export GOPATH=~
 
 # For RUST
 export PATH="${PATH}:$HOME/.cargo/bin"
+if [ -f $HOME/.cargo ]; then
+    . "$HOME/.cargo/env"
+fi
+alias cg='cargo'
+alias rc='rustc'
 
 function zhi() {
     echo -e "\033[0;31m[EXEC]: $@\033[0m"
@@ -139,7 +143,7 @@ function gitPrompt {
 }
 
 
-####################### COLOURFUL
+####################### COLOURFUL START #######################
 # Colours have names too. Stolen from Arch wiki
 # https://wiki.archlinux.org/title/Color_output_in_console#Environment_variables
 txtblk='\e[0;30m' # Black - Regular
@@ -175,7 +179,6 @@ bakpur='\e[45m'   # Purple
 bakcyn='\e[46m'   # Cyan
 bakwht='\e[47m'   # White
 txtrst='\e[0m'    # Text Reset
-
 # Prompt colours
 atC="${txtwht}"
 nameC="${txtpur}"
@@ -184,15 +187,12 @@ pathC="${txtgrn}"
 gitC="${txtpur}"
 pointerC="${txtgrn}"
 normalC="${txtwht}"
-
 # Red name for root
 if [ "${UID}" -eq "0" ]; then
     nameC="${txtred}"
 fi
-
 # Patent Pending Prompt
 export PS1="${undblu}${nameBGC}${nameC}\u${atC}@${hostC}\h${normalC}:${pathC}\w${gitC}\$(gitPrompt)${pointerC}${normalC}\n\$ "
-
 # colorful MAN pages
 export LESS_TERMCAP_md=$'\e[01;31m'   # Start bold effect (double-bright).
 export LESS_TERMCAP_me=$'\e[0m'       # Stop bold effect.
@@ -200,64 +200,65 @@ export LESS_TERMCAP_us=$'\e[1;4;32m'  # Start underline effect.
 export LESS_TERMCAP_ue=$'\e[0m'       # Stop underline effect.
 export LESS_TERMCAP_so=$'\e[1;45;93m' # Start stand-out effect (similar to reverse text).
 export LESS_TERMCAP_se=$'\e[0m'       # Stop stand-out effect (similar to reverse text).
-
 # after sudo apt install most
 # export PARGER="most"
 ## export PARGER="/usr/bin/most -s"
+####################### COLOURFUL END #######################
 
-if [ 'pts' != `tty | cut -d'/' -f3` ] # not ssh connection.
+### FCITX ###
+# not ssh connection.
+# but this does not work in Ctrl+Alt+Fn mode.
+if [ 'pts' != `tty | cut -d'/' -f3` ]
 then
-    ### fcitx
     export GTX_IM_MODULE=fcitx
     export QT_IM_MODULE=fcitx
     export XMODIFIERS="@im=fcitx"
     fcitx-autostart
 fi
 
-# alias
-if [ '16.04' == `lsb_release -r | cut -f 2` ]
+### ALIAS ###
+alias biggest="du -h --max-depth=1 | sort -h"
+alias follow="tail -f -n +1"
+
+# COLOR print
+alias grep='grep --color=auto'
+alias ll='ls -ahl'
+alias ls='/bin/ls -F --color=auto'
+alias phpunit='phpunit --colors'
+# icdiff
+# alias diff='diff --color=auto'
+alias icdiff='icdiff --color-map'
+alias diff='icdiff'
+if [ 16 -ge `lsb_release -r | cut -f2 | cut -d'.' -f1` ]
 then
     alias ip='ip --color'
 else
     alias ip='ip --color=auto'
 fi
-alias cdbin="cd /home/sma/sma-srv/debug/x86_64-linux-gnu/bin"
-alias cdacs="cd /home/sma/sma-srv"
-alias biggest="du -h --max-depth=1 | sort -h"
-alias cdcpp='cd /home/basil/code/cpp/cpp_server_develop'
-alias diff='diff --color=auto'
-alias follow="tail -f -n +1"
-alias grep='grep --color=auto'
-alias ll='ls -ahl'
-alias ls='/bin/ls -F --color=auto'
-alias phpunit='phpunit --colors'
 alias py3='python3'
+alias make='make -j4'
 alias remake='make clean; make'
 alias rmtags='rm cscope.* tags'
 alias vimpress="VIMENV=talk vim"
 alias vi='/usr/bin/vim'
+# tmux
 alias tn='tmux new-session -s'
-alias ts='tn'
-alias ta='tmux attach'
+alias ts='tmux new-session -s'
 alias tt='tmux attach -t'
+alias ta='tmux attach'
+alias tls='tmux ls'
 # browser
 alias ff="firefox"
 alias edge='microsoft-edge-stable'
-if [ -f $HOME/.cargo ]; then
-    . "$HOME/.cargo/env"
-fi
-
-# current working directory
-alias cdd='cd /home/basil/code/c/test/ipc'
-
-# tmux
-alias ta='tmux attach'
-alias ts='tmux new-session -s'
-alias tls='tmux ls'
 # Git
-alias gpom='git push -u origin master'
-alias gs='git status'
-alias gg='git grep -ni'
 alias g='git'
-alias cdd='cd /home/basil/code/c/projects'
-alias cdd='cd /home/basil/code/c/projects/c_interfaces_and_implementations_techniques_for_creating_reusable_software'
+alias gs='git status'
+alias gca='git commit -a'
+alias gcm='git commit -m'
+alias gg='git grep -ni'
+alias gpom='git push -u origin master'
+# current working directory
+alias cdbin="cd /home/sma/sma-srv/debug/x86_64-linux-gnu/bin"
+alias cdacs="cd /home/sma/sma-srv"
+alias cdcpp='cd /home/basil/code/cpp/cpp_server_develop'
+alias cdd='cd /home/basil/code/c/test/ipc'
