@@ -68,7 +68,7 @@ shopt -s histappend
 export EDITOR=/usr/bin/vim
 export PATH=.:${PATH}
 # Personal binaries
-export PATH=${PATH}:~/bin:~/.local/bin:~/etc/scripts
+# export PATH=${PATH}:~/bin:~/.local/bin:~/etc/scripts
 
 # I'd quite like for Go to work please.
 export PATH=${PATH}:/usr/local/go/bin
