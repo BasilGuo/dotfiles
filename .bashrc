@@ -56,7 +56,8 @@ function makelinuxtags()
 ################ FROM https://hub.fastgit.org/tomnomnom/dotfiles/blob/master/.bashrc #######################
 
 # The displayed title
-echo -ne '\033]0;Home sma\a'
+name="\033]0;Home `whoami`\a"
+echo -ne ${name}
 
 # History control
 HISTCONTROL=ignoredups:ignorespace
