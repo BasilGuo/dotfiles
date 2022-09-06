@@ -229,11 +229,11 @@ alias phpunit='phpunit --colors'
 # alias diff='diff --color=auto'
 alias icdiff='icdiff --color-map'
 alias diff='icdiff'
-if [ 16 -ge `lsb_release -r | cut -f2 | cut -d'.' -f1` ]
+if [[ 16 -ge `lsb_release -r | cut -f2 | cut -d'.' -f1` ]]
 then
-    alias ip='ip --color'
+    alias ip='ip --color' # for Ubuntu 16.04 or lower version
 else
-    alias ip='ip --color=auto'
+    alias ip='ip --color=auto' # for Ubuntu 18.04 or higher version
 fi
 alias py3='python3'
 alias make='make -j4'
