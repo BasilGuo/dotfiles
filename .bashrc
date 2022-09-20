@@ -223,8 +223,9 @@ alias follow="tail -f -n +1"
 
 # COLOR print
 alias grep='grep --color=auto'
-alias ll='ls -ahl'
 alias ls='/bin/ls -F --color=auto'
+alias ll='ls -ahl'
+alias lg='ls | grep -v ^cscope | grep -v tags' # no cscope files and tags file
 alias phpunit='phpunit --colors'
 # icdiff
 # alias diff='diff --color=auto'
@@ -263,3 +264,4 @@ alias cdbin="cd /home/sma/sma-srv/debug/x86_64-linux-gnu/bin"
 alias cdacs="cd /home/sma/sma-srv"
 alias cdcpp='cd /home/basil/code/cpp/cpp_server_develop'
 alias cdd='cd /home/basil/code/c/test/ipc'
+alias rmbuild='for d in `ls`; do if [ -d $d ]; then echo $d; cd $d; rm -rf build; cd ..; fi; done'
