@@ -1,4 +1,9 @@
 ! after modification running: xrdb -merge ~/.Xresources
-xterm*faceName: Monnospace
-xterm*faceSize: 12
-xterm*font: *-fixed-*-*-*-12-*
+
+! Font
+! xterm*faceName: Monnospace
+! xterm*faceSize: 12
+xterm*font: *-fixed-*-*-*-10-*
+
+! Screen
+xterm*geometry: 80x8
