@@ -25,3 +25,6 @@
 ## For XTerm
 > DIR: ~/, running `xrdb -merge ~/.Xresources` after modification.
 - `.Xresources`
+
+# useful_tools.md
+This introduces the effient tools for programming or using linux.
