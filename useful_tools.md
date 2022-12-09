@@ -34,4 +34,10 @@ doc generation.
 
 ```shell
 $ sudo apt install -y doxygen
+
+$ doxygen -g # generate an Doxyfile file.
+$ vim Doxyfile # `EXTRACT_ALL, EXTRACT_PRIVATE, RECURSIVE, HAVE_DOT, CALL_GRAPH, CALLER_GRAPH`;
+               # make sure these options are all set to `YES` that extract all entites from
+               # the code, even in subdirectories, and that call graphs are generated.
+$ doxygen Doxyfile # generate the documentation in `html` directory.
 ```
