@@ -20,7 +20,9 @@
 
 ## For Tmux
 > DIR: ~/.config/tmux/
-- `.tmux.conf`
+- `.tmux.conf`:
+    1. in a open tmux-session: Ctrl+B(leader key) `:source-file ~/.config/tmux/.tmux.conf`
+    2. for global:  `tmux source-file ~/.tmux.conf`
 
 ## For XTerm
 > DIR: ~/, running `xrdb -merge ~/.Xresources` after modification.
