@@ -22,7 +22,7 @@ function maketags()
         ctags -L cscope.files
 }
 
-# Don't use only if you know what you does!
+# Don't use only if you know what you do!
 function makelinuxtags()
 {
     lkr=$1

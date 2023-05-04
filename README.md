@@ -15,6 +15,7 @@
 
 ## For Vim
 > DIR: ~/
+copy following files to `~` and `.vim/cscope_maps.vim` to `~/.vim`
 - `.vimrc`
 - `.gvimrc`
 

@@ -181,14 +181,24 @@ set dir=/tmp/
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""" New File Predefined Text """""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 在打开的文件中使用:set ft判断文件类，使用如下命令添加文件类型
+" Using `:set ft` to judge the file type in opeing file
+" Using following command to add file type
 " au BufRead,BufNewFile *.txt       setfiletype text
-"新建.c,.h,.sh,.java文件，自动插入文件头
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.rb,*.java,*.py,CMakeLists.txt exec ":call SetTitle()"
-""定义函数SetTitle，自动插入文件头
+" Inserting file header automatically when creating `.c, .h, .sh, .java`
+" files.
+autocmd BufNewFile *.lua,*.cpp,*.[ch],*.sh,*.rb,*.java,*.py,CMakeLists.txt exec ":call SetTitle()"
+" Function `SetTitle` would insert file header automatically
 func SetTitle()
-    "如果文件类型为.sh文件
-    if &filetype == 'sh'
+    if &filetype == 'lua'
+        call setline(1, "#!/usr/bin/env lua")
+        call append(line("."),   "-- Author:      basilguo@163.com")
+        call append(line(".")+1, "-- Date:        ".strftime("%Y-%m-%d %I:%M:%S"))
+        call append(line(".")+2, "-- File Name:   ".expand("%"))
+        call append(line(".")+3, "-- Version:     1.0.0")
+        call append(line(".")+4, "-- Description: ")
+        call append(line(".")+5, "")
+    " if it is `.sh` file
+    elseif &filetype == 'sh'
         call setline(1, "#!/usr/bin/env bash")
         call append(line("."),   "# Author:      basilguo@163.com")
         call append(line(".")+1, "# Date:        ".strftime("%Y-%m-%d %I:%M:%S"))
@@ -273,6 +283,6 @@ endfunc
 autocmd BufNewFile * normal G
 
 " for ctags and cscope
+source ~/.vim/cscope_maps.vim
 " set tags+=/home/basil/code/sma-srv/tags
 " let CSCOPE_DB="/home/basil/code/sma-srv/cscope.out"
-" source ~/.vim/cscope_maps.vim
