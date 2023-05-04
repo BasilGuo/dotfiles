@@ -283,6 +283,6 @@ endfunc
 autocmd BufNewFile * normal G
 
 " for ctags and cscope
-source ~/.vim/cscope_maps.vim
+" source ~/.vim/cscope_maps.vim
 " set tags+=/home/basil/code/sma-srv/tags
 " let CSCOPE_DB="/home/basil/code/sma-srv/cscope.out"
