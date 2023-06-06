@@ -181,24 +181,14 @@ set dir=/tmp/
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""" New File Predefined Text """""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Using `:set ft` to judge the file type in opeing file
-" Using following command to add file type
+" 在打开的文件中使用:set ft判断文件类，使用如下命令添加文件类型
 " au BufRead,BufNewFile *.txt       setfiletype text
-" Inserting file header automatically when creating `.c, .h, .sh, .java`
-" files.
-autocmd BufNewFile *.lua,*.cpp,*.[ch],*.sh,*.rb,*.java,*.py,CMakeLists.txt exec ":call SetTitle()"
-" Function `SetTitle` would insert file header automatically
+"新建.c,.h,.sh,.java文件，自动插入文件头
+autocmd BufNewFile *.cpp,*.[ch],*.sh,*.rb,*.java,*.py,CMakeLists.txt exec ":call SetTitle()"
+""定义函数SetTitle，自动插入文件头
 func SetTitle()
-    if &filetype == 'lua'
-        call setline(1, "#!/usr/bin/env lua")
-        call append(line("."),   "-- Author:      basilguo@163.com")
-        call append(line(".")+1, "-- Date:        ".strftime("%Y-%m-%d %I:%M:%S"))
-        call append(line(".")+2, "-- File Name:   ".expand("%"))
-        call append(line(".")+3, "-- Version:     1.0.0")
-        call append(line(".")+4, "-- Description: ")
-        call append(line(".")+5, "")
-    " if it is `.sh` file
-    elseif &filetype == 'sh'
+    "如果文件类型为.sh文件
+    if &filetype == 'sh'
         call setline(1, "#!/usr/bin/env bash")
         call append(line("."),   "# Author:      basilguo@163.com")
         call append(line(".")+1, "# Date:        ".strftime("%Y-%m-%d %I:%M:%S"))
@@ -239,50 +229,71 @@ func SetTitle()
     elseif &filetype == 'mkd'
         call setline(1,"<head><meta charset=\"UTF-8\"></head>")
     else
-        call setline(1,          "/******************************************************")
-        call append(line("."),   " * File Name:    ".expand("%"))
-        call append(line(".")+1, " * Author:       basilguo@163.com")
-        call append(line(".")+2, " * Created Time: ".strftime("%Y-%m-%d %I:%M:%S"))
-        call append(line(".")+3, " * Description:  ")
-        call append(line(".")+4, " ******************************************************/")
-        call append(line(".")+5, "")
+        call setline(1,          "/********************************************************************************")
+        call append(line("."), "* MIT License")
+        call append(line(".")+1, "*")
+        call append(line(".")+2, "* Copyright (c) [".strftime("%Y")."] [Basil Guo]")
+        call append(line(".")+3, "*")
+        call append(line(".")+4, "* Permission is hereby granted, free of charge, to any person obtaining a copy")
+        call append(line(".")+5, "* of this software and associated documentation files (the \"Software\"), to deal")
+        call append(line(".")+6, "* in the Software without restriction, including without limitation the rights")
+        call append(line(".")+7, "* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell")
+        call append(line(".")+8, "* copies of the Software, and to permit persons to whom the Software is")
+        call append(line(".")+9, "* furnished to do so, subject to the following conditions:")
+        call append(line(".")+10, "*")
+        call append(line(".")+11, "* The above copyright notice and this permission notice shall be included in all")
+        call append(line(".")+12, "* copies or substantial portions of the Software.")
+        call append(line(".")+13, "*")
+        call append(line(".")+14, "* THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR")
+        call append(line(".")+15, "* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,")
+        call append(line(".")+16, "* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE")
+        call append(line(".")+17, "* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER")
+        call append(line(".")+18, "* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,")
+        call append(line(".")+19, "* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE")
+        call append(line(".")+20, "* SOFTWARE.")
+        call append(line(".")+21, "*")
+        call append(line(".")+22, "* File Name:    ".expand("%"))
+        call append(line(".")+23, "* Author:       basilguo@163.com")
+        call append(line(".")+24, "* Created Time: ".strftime("%Y-%m-%d %I:%M:%S"))
+        call append(line(".")+25, "* Description:  ")
+        call append(line(".")+26, "********************************************************************************/")
+        call append(line(".")+27, "")
     endif
     if expand("%:e") == 'cpp'
-        call append(line(".")+6, "#include <iostream>")
-        call append(line(".")+7, "#include <string>")
-        call append(line(".")+8, "#include <vector>")
-        call append(line(".")+9, "#include <set>")
-        call append(line(".")+10, "#include <map>")
-        call append(line(".")+11, "#include <algorithm>")
-        call append(line(".")+12, "using namespace std;")
-        call append(line(".")+13, "")
+        call append(line(".")+28, "#include <iostream>")
+        call append(line(".")+29, "#include <string>")
+        call append(line(".")+30, "#include <vector>")
+        call append(line(".")+31, "#include <set>")
+        call append(line(".")+32, "#include <map>")
+        call append(line(".")+33, "#include <algorithm>")
+        call append(line(".")+34, "using namespace std;")
+        call append(line(".")+35, "")
     endif
     if &filetype == 'c'
-        call append(line(".")+6, "#include <stdio.h>")
-        call append(line(".")+7, "#include <stdlib.h>")
-        " call append(line(".")+8, \"#include \"utils.h\"")
-        call append(line(".")+8, "")
-        call append(line(".")+9, "")
-        call append(line(".")+10, "int main(int argc, char *argv[])")
-        call append(line(".")+11, "{")
-        call append(line(".")+12, "    return 0;")
-        call append(line(".")+13, "}")
+        call append(line(".")+28, "#include <stdio.h>")
+        call append(line(".")+29, "#include <stdlib.h>")
+        call append(line(".")+30, "")
+        call append(line(".")+31, "")
+        call append(line(".")+32, "int main(int argc, char *argv[])")
+        call append(line(".")+33, "{")
+        call append(line(".")+34, "    return 0;")
+        call append(line(".")+35, "}")
     endif
     if expand("%:e") == 'h'
-        call append(line(".")+5, "#ifndef ".toupper(expand("%:r"))."_H")
-        call append(line(".")+6, "#define ".toupper(expand("%:r"))."_H")
-        call append(line(".")+7, "#endif // ".toupper(expand("%:r"))."_H")
+        call append(line(".")+28, "#ifndef ".toupper(expand("%:r"))."_H")
+        call append(line(".")+29, "#define ".toupper(expand("%:r"))."_H")
+        call append(line(".")+30, "#endif // ".toupper(expand("%:r"))."_H")
     endif
     if &filetype == 'java'
-        call append(line(".")+5, "package chap7_hiding;")
-        call append(line(".")+6, "")
-        call append(line(".")+7,"public class ".expand("%:r")." {")
-        call append(line(".")+8,"}")
+        call append(line(".")+28, "package chap7_hiding;")
+        call append(line(".")+29, "")
+        call append(line(".")+30,"public class ".expand("%:r")." {")
+        call append(line(".")+31,"}")
     endif
 endfunc
 autocmd BufNewFile * normal G
 
 " for ctags and cscope
-" source ~/.vim/cscope_maps.vim
 " set tags+=/home/basil/code/sma-srv/tags
 " let CSCOPE_DB="/home/basil/code/sma-srv/cscope.out"
+" source ~/.vim/cscope_maps.vim
