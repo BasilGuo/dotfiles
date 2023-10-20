@@ -5,7 +5,5 @@
 [user]
 	name = basil1728\n
 	email = basilguo@163.com
-[credential]
-	helper = store
 [include]
     path = ~/.gitalias

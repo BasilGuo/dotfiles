@@ -16,7 +16,9 @@
 
 Creating `~/.gitconfig` if there is no such file.
 And the only thing is to modify the include path.
-Of course you could copy them to `~`.
+
+Of course you could copy them to `~` simplifily.
+BUT, REMEMBER TO MODIFY name AND email TO your name AND your email.
 
 - `.gitalias`
 - `.gitconfig
