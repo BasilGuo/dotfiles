@@ -611,6 +611,10 @@
   # Show log as a graph
   log-graph = log --graph --all --oneline --decorate
 
+  # Show log as a pretty graph
+  # Don't delete the blank in following line. It is part of the format.
+  log-pretty-graph = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+
   # Show the date of the first (a.k.a. earliest) commit, in strict ISO 8601 format
   log-date-first = !"git log --date-order --format=%cI | tail -1"
 
