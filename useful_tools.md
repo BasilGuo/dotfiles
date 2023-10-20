@@ -3,6 +3,7 @@
 ## command line
 
 ### tldr
+
 too long; don't read.
 It is a substitute of `man`.
 
@@ -14,7 +15,8 @@ $ tldr <command>
 You could also use the `npm` to install this.
 
 ### tmux
-terminal multiplexer.
+
+terminal multiplexer. You'd better use `.tmux.conf`, Haha.
 
 ```shell
 $ sudo apt install -y tmux
@@ -26,16 +28,17 @@ $ tmux attach
 $ tmux attach -t
 ```
 
-
 ## programming tool
 
 ### Doxygen
+
 doc generation.
 
 ```shell
 $ sudo apt install -y doxygen
 
-$ doxygen -g # generate an Doxyfile file.
+# generate an Doxyfile file.
+$ doxygen -g
 $ vim Doxyfile # `EXTRACT_ALL, EXTRACT_PRIVATE, RECURSIVE, HAVE_DOT, CALL_GRAPH, CALLER_GRAPH`;
                # make sure these options are all set to `YES` that extract all entites from
                # the code, even in subdirectories, and that call graphs are generated.

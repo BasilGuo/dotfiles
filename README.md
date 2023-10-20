@@ -1,12 +1,41 @@
 > This repo is for dotfiles.
+>
+> DISCLAIMER: I CANNOT PROMISE IT WOULD RUN AS YOU WANT.
+> YOU MAY NEED TO MODIFY THE dotfiles BY YOURSELF.
+> I JUST USE AND TEST AT Ubuntu 20.04.
+>
+> As the saying goes: If you want something done right, do it yourself.
+>
+> Don't forget to backup your local `dotfiles` before copying.
+>
+> So, feel free to modify these dotfiles.
 
 # dotfiles
 
 ## For Bash
 
-> DIR: ~/, running `. ~/.vimrc` after modification.
+> DIR: ~/
 
 - `.bashrc`
+
+The recommended way is to add such lines in your `~/.bashrc`
+
+```bash
+if [ -f /path/to/dotfiles/.bashrc ]; then
+    . /path/to/dotfiles/.bashrc
+fi
+```
+
+- Running `. ~/.bashrc` after modification.
+- You could just comment the line with `#` which is complained by bash.
+- The most wrong place is at `The displayed title` when you use `scp`. You could comment them.
+- The another one is the color alias which in different version of Ubuntu.
+- I just use Ubuntu server now, but the tty always complained when connected by `ssh`. So I commented them.
+- etc.
+
+THIS following TWO are not necessary and have been decoupled from `.bashrc`.
+I have forgotten why I need them :).
+
 - `.colors.sh`
 - `.git_prompt.sh`
 
@@ -21,29 +50,38 @@ Of course you could copy them to `~` simplifily.
 BUT, REMEMBER TO MODIFY name AND email TO your name AND your email.
 
 - `.gitalias`
-- `.gitconfig
+- `.gitconfig`
 
 ## For Vim
 
 > DIR: ~/
 
-copy following files to `~` and `.vim/cscope_maps.vim` to `~/.vim`
+Copy following files to `~` and `.vim/cscope_maps.vim` to `~/.vim`.
 
+Well, I have also forgotten why I need `.vim/cscope_maps.vim`.
+You could just use `.vimrc` if you like it.
+But, don't forget to modify the block of `New File Predefined Text`.
+
+- `.vim`
 - `.vimrc`
 - `.gvimrc`
 
 ## For Tmux
 
-> DIR: ~/.config/tmux/
+> DIR: ~/
 
 - `.tmux.conf`:
 
-    1. in a open tmux-session: Ctrl+B(leader key) `:source-file ~/.config/tmux/.tmux.conf`
-    2. for global:  `tmux source-file ~/.tmux.conf`
+1. in a open tmux-session: Ctrl+B(leader key) `:source-file ~/.config/tmux/.tmux.conf`
+2. for global:  `tmux source-file ~/.tmux.conf`
 
 ## For XTerm
 
-> DIR: ~/, running `xrdb -merge ~/.Xresources` after modification.
+> DIR: ~/
+
+Running `xrdb -merge ~/.Xresources` after modification.
+
+I don't need this now :)
 
 - `.Xresources`
 
