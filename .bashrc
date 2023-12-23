@@ -18,8 +18,8 @@ fi
 function maketags()
 {
     find -H $PWD -name "*.[chsS]" -o -name "*.cpp" > cscope.files
-        cscope -bkq -i cscope.files
-        ctags -L cscope.files
+    cscope -bkq -i cscope.files
+    ctags -L cscope.files
 }
 
 # Don't use only if you know what you do!
@@ -30,27 +30,27 @@ function makelinuxtags()
     if [ -z "$lkr" ]; then lkr=$PWD; fi
     if [ -z "$arch" ]; then arch="x86"; fi
     find -H $lkr/include -name "*.[ch]" > cscope.files
-        find -H $lkr/lib -name "*.[ch]" >> cscope.files
-        find -H $lkr/kernel -name "*.[ch]" >> cscope.files
-        find -H $lkr/mm -name "*.[ch]" >> cscope.files
-        find -H $lkr/init -name "*.[ch]" >> cscope.files
-        find -H $lkr/fs -name "*.[ch]" >> cscope.files
-        find -H $lkr/arch/$arch -name "*.[ch]" >> cscope.files
-        find -H $lkr/drivers/net -name "*.[ch]" >> cscope.files
-        find -H $lkr/drivers/of -name "*.[ch]" >> cscope.files
-        find -H $lkr/drivers/base -name "*.[ch]" >> cscope.files
-        find -H $lkr/drivers/char -name "*.[ch]" >> cscope.files
-        find -H $lkr/drivers/mtd -name "*.[ch]" >> cscope.files
-        find -H $lkr/drivers/memory -name "*.[ch]" >> cscope.files
-        find -H $lkr/drivers/spi -name "*.[ch]" >> cscope.files
-        find -H $lkr/drivers/gpio -name "*.[ch]" >> cscope.files
-        find -H $lkr/drivers/mmc -name "*.[ch]" >> cscope.files
-        find -H $lkr/drivers/usb -name "*.[ch]" >> cscope.files
-        find -H $lkr/net/core -name "*.[ch]" >> cscope.files
-        find -H $lkr/net/ipv4 -name "*.[ch]" >> cscope.files
-        find -H $lkr/net/ethernet -name "*.[ch]" >> cscope.files
-        cscope -bkq -i cscope.files
-        ctags -L cscope.files
+    find -H $lkr/lib -name "*.[ch]" >> cscope.files
+    find -H $lkr/kernel -name "*.[ch]" >> cscope.files
+    find -H $lkr/mm -name "*.[ch]" >> cscope.files
+    find -H $lkr/init -name "*.[ch]" >> cscope.files
+    find -H $lkr/fs -name "*.[ch]" >> cscope.files
+    find -H $lkr/arch/$arch -name "*.[ch]" >> cscope.files
+    find -H $lkr/drivers/net -name "*.[ch]" >> cscope.files
+    find -H $lkr/drivers/of -name "*.[ch]" >> cscope.files
+    find -H $lkr/drivers/base -name "*.[ch]" >> cscope.files
+    find -H $lkr/drivers/char -name "*.[ch]" >> cscope.files
+    find -H $lkr/drivers/mtd -name "*.[ch]" >> cscope.files
+    find -H $lkr/drivers/memory -name "*.[ch]" >> cscope.files
+    find -H $lkr/drivers/spi -name "*.[ch]" >> cscope.files
+    find -H $lkr/drivers/gpio -name "*.[ch]" >> cscope.files
+    find -H $lkr/drivers/mmc -name "*.[ch]" >> cscope.files
+    find -H $lkr/drivers/usb -name "*.[ch]" >> cscope.files
+    find -H $lkr/net/core -name "*.[ch]" >> cscope.files
+    find -H $lkr/net/ipv4 -name "*.[ch]" >> cscope.files
+    find -H $lkr/net/ethernet -name "*.[ch]" >> cscope.files
+    cscope -bkq -i cscope.files
+    ctags -L cscope.files
 }
 
 ################ FROM https://hub.fastgit.org/tomnomnom/dotfiles/blob/master/.bashrc #######################
@@ -260,8 +260,18 @@ alias gcm='git commit -m'
 alias gg='git grep -ni'
 alias gpom='git push -u origin master'
 # current working directory
-alias cdbin="cd /home/sma/sma-srv/debug/x86_64-linux-gnu/bin"
-alias cdacs="cd /home/sma/sma-srv"
-alias cdcpp='cd /home/basil/code/cpp/cpp_server_develop'
 alias cdd='cd /home/basil/code/c/test/ipc'
-alias rmbuild='for d in `ls`; do if [ -d $d ]; then echo $d; cd $d; rm -rf build; cd ..; fi; done'
+
+function rmbuild()
+{
+    rm -rf build debug
+    for d in `ls`
+    do
+        if [ -d $d ]
+        then
+            echo $1 $d
+            cd $d; rm -rf build debug; rmbuild "$1###"; cd ..
+        fi
+    done
+}
+
