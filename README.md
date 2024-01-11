@@ -18,7 +18,7 @@
 
 - `.bashrc`
 
-The recommended way is to add such lines in your `~/.bashrc`
+The recommended way is to add following lines in your `~/.bashrc`.
 
 ```bash
 if [ -f /path/to/dotfiles/.bashrc ]; then
@@ -28,7 +28,7 @@ fi
 
 - Running `. ~/.bashrc` after modification.
 - You could just comment the line with `#` which is complained by bash.
-- The most wrong place is at `The displayed title` when you use `scp`. You could comment them.
+- The most wrong place is at `The displayed title` when you use `scp`. Feel free to comment them.
 - The another one is the color alias which in different version of Ubuntu.
 - I just use Ubuntu server now, but the tty always complained when connected by `ssh`. So I commented them.
 - etc.
@@ -51,6 +51,9 @@ BUT, REMEMBER TO MODIFY name AND email TO your name AND your email.
 
 - `.gitalias`
 - `.gitconfig`
+
+If you don't want to copy the `.gitalias` to `~`, just modify the
+`path` configuration in `~/.gitconfig`.
 
 ## For Vim
 

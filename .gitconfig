@@ -3,7 +3,7 @@
 [core]
 	pager = less -r
 [user]
-	name = basil1728\n
+	name = basilguo
 	email = basilguo@163.com
 [include]
     path = ~/.gitalias
