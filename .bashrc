@@ -260,7 +260,6 @@ alias gcm='git commit -m'
 alias gg='git grep -ni'
 alias gpom='git push -u origin master'
 # current working directory
-alias cdd='cd /home/basil/code/c/test/ipc'
 
 function rmbuild()
 {
@@ -275,3 +274,4 @@ function rmbuild()
     done
 }
 
+export PATH=~/.local/bin:${PATH}

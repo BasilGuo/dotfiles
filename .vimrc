@@ -293,6 +293,31 @@ func SetTitle()
 endfunc
 autocmd BufNewFile * normal G
 
+" get vim version
+" https://www.zhihu.com/question/265267919
+function! te#feat#get_vim_version() abort
+    let l:result=[]
+    if te#env#IsNvim()
+        let v = api_info().version
+        call add(l:result,'nvim')
+        call add(l:result,printf('%d.%d.%d', v.major, v.minor, v.patch))
+    else
+        redir => l:msg
+        silent! execute ':version'
+        redir END
+        call add(l:result,matchstr(l:msg,'VIM - Vi IMproved\s\zs\d.\d\ze'))
+        call add(l:result, matchstr(l:msg, ':\s\d-\zs\d\{1,4\}\ze'))
+    endif
+    return l:result
+endfunction
+
+" for tab pages, requires vim version >= 7.0
+" c means CTRL.
+nnoremap <C-n> :tabnew<Space>
+nnoremap <C-j> :tabnext<CR>
+nnoremap <C-k> :tabprevious<CR>
+nnoremap <C-c> :tabclose<CR>
+
 " for ctags and cscope
 " set tags+=/path/to/tags
 " let CSCOPE_DB="/path/to/cscope.out"
