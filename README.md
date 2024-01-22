@@ -55,6 +55,15 @@ BUT, REMEMBER TO MODIFY name AND email TO your name AND your email.
 If you don't want to copy the `.gitalias` to `~`, just modify the
 `path` configuration in `~/.gitconfig`.
 
+You could set the `.gitignore_global` as global `.gitignore` by setting
+the optional configuration variable `core.excludesFile`.
+A demo configuration is
+
+```conf
+[core]
+    excludesfile = /path/to/.gitignore_global
+```
+
 ## For Vim
 
 > DIR: ~/
