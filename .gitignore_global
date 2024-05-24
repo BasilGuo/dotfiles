@@ -1,6 +1,9 @@
 # self-defined
+.vscode/
 bin/
 build/
+tags
+cscope.files
 
 # from https://github.com/github/gitignore/blob/main/C.gitignore
 # and  https://github.com/github/gitignore/blob/main/C%2B%2B.gitignore

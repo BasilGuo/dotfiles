@@ -186,7 +186,7 @@ set dir=/tmp/
 " au BufRead,BufNewFile *.txt       setfiletype text
 "
 " Insert the header automatically when crateing .c,.h,.sh,.java files
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.rb,*.java,*.py,CMakeLists.txt,*.md exec ":call SetTitle()"
+autocmd BufNewFile *.cpp,*.hpp,*.[ch],*.sh,*.rb,*.java,*.py,CMakeLists.txt,*.md exec ":call SetTitle()"
 func SetTitle()
     if &filetype == 'sh'
         call setline(1,             "#!/usr/bin/env bash")
@@ -250,6 +250,13 @@ func SetTitle()
         call append(line(".")+4,    " * Description:  ")
         call append(line(".")+5,    " *******************************************************************************/")
         call append(line(".")+6,    "")
+    endif
+
+    if expand("%:e") == 'hpp'
+        call append(line(".")+7,    "#ifndef ".toupper(expand("%:r"))."_HPP")
+        call append(line(".")+8,    "#define ".toupper(expand("%:r"))."_HPP")
+        call append(line(".")+9,    "")
+        call append(line(".")+10,   "#endif // ".toupper(expand("%:r"))."_HPP")
     endif
     if expand("%:e") == 'cpp'
         call append(line(".")+7,    "#include <iostream>")
