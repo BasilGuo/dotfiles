@@ -86,7 +86,8 @@ endif " has("autocmd")
 command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
 	 	\ | wincmd p | diffthis
 
-colorscheme desert
+colorscheme onedark
+"colorscheme desert
 "colorscheme delek
 set number
 set expandtab
