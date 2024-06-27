@@ -56,8 +56,8 @@ function makelinuxtags()
 ################ FROM https://hub.fastgit.org/tomnomnom/dotfiles/blob/master/.bashrc #######################
 
 # The displayed title
-name="\033]0;`whoami`@`hostname`\a"
-echo -ne ${name}
+# name="\033]0;$(whoami)@$(hostname)\a"
+# echo -ne ${name}
 
 # History control
 HISTCONTROL=ignoredups:ignorespace
@@ -66,7 +66,7 @@ HISTFILESIZE=2000000
 shopt -s histappend
 
 # COLOURS! YAAAY!
-export EDITOR=/usr/bin/vim
+export EDITOR=$(which nvim)
 export PATH=.:${PATH}
 # Personal binaries
 # export PATH=${PATH}:~/bin:~/.local/bin:~/etc/scripts
@@ -86,7 +86,7 @@ alias rc='rustc'
 function zhi() {
     echo -e "\033[0;31m[EXEC]: $@\033[0m"
     echo
-    `"$@" > /dev/null`
+    $("$@" > /dev/null)
     echo -e "\033[0;31m[DONE]: $@\033[0m"
 }
 
@@ -209,13 +209,13 @@ export LESS_TERMCAP_se=$'\e[0m'       # Stop stand-out effect (similar to revers
 ### FCITX ###
 # not ssh connection.
 # but this does not work in Ctrl+Alt+Fn mode.
-if [ 'pts' != `tty | cut -d'/' -f3` ]
-then
-    export GTX_IM_MODULE=fcitx
-    export QT_IM_MODULE=fcitx
-    export XMODIFIERS="@im=fcitx"
-    fcitx-autostart
-fi
+# if [ 'pts' != $(tty | cut -d'/' -f3) ]
+# then
+#     export GTX_IM_MODULE=fcitx
+#     export QT_IM_MODULE=fcitx
+#     export XMODIFIERS="@im=fcitx"
+#     fcitx-autostart
+# fi
 
 ### ALIAS ###
 alias biggest="du -h --max-depth=1 | sort -h"
@@ -231,7 +231,7 @@ alias phpunit='phpunit --colors'
 # alias diff='diff --color=auto'
 alias icdiff='icdiff --color-map'
 alias diff='icdiff'
-if [[ 16 -ge `lsb_release -r | cut -f2 | cut -d'.' -f1` ]]
+if [[ 16 -ge $(lsb_release -r | cut -f2 | cut -d'.' -f1) ]]
 then
     alias ip='ip --color' # for Ubuntu 16.04 or lower version
 else
@@ -241,8 +241,8 @@ alias py3='python3'
 alias make='make -j4'
 alias remake='make clean; make'
 alias rmtags='rm cscope.* tags'
+alias vi='$(which nvim)'
 alias vimpress="VIMENV=talk vim"
-alias vi='/usr/bin/vim'
 # tmux
 alias tn='tmux new-session -s'
 alias ts='tmux new-session -s'
@@ -259,12 +259,11 @@ alias gca='git commit -a'
 alias gcm='git commit -m'
 alias gg='git grep -ni'
 alias gpom='git push -u origin master'
-# current working directory
 
 function rmbuild()
 {
     rm -rf build debug
-    for d in `ls`
+    for d in $(ls)
     do
         if [ -d $d ]
         then
@@ -274,4 +273,5 @@ function rmbuild()
     done
 }
 
+# current working directory
 export PATH=~/.local/bin:${PATH}
