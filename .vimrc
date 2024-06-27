@@ -53,6 +53,9 @@ set termencoding=utf-8
 set fileformats=unix,dos
 set encoding=utf-8
 
+" open file to display the file with :ex
+set path=**
+set wildmenu
 
 set csprg=/usr/bin/cscope
 set csto=0
