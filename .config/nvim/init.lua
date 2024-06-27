@@ -35,10 +35,10 @@ vim.opt.breakindent = true
 vim.opt.undofile = true
 
 -- The amount of space on screen a Tab
-vim.opt.tabstop = 2
+vim.opt.tabstop = 4
 
 -- Amount of characters Neovim will use to indent a line
-vim.opt.shiftwidth = 2
+vim.opt.shiftwidth = 4
 
 -- transform a Tab character to spaces
 vim.opt.expandtab = true
