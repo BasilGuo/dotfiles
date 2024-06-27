@@ -7,40 +7,44 @@
 -- line number
 vim.opt.number = true
 
+-- The options I don't like
+-- Sync clipboard between OS and Neovim.
+-- vim.opt.clipboard = 'unnamedplus'
+
 -- mouse mode: previous mode
-vim.opt.mouse = 'a'
+-- vim.opt.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
-vim.opt.showmode = false     
+vim.opt.showmode = false
 
 -- when executing search Case-insensitive searching UNLESS \C
 -- or one or more capital letters in the search term
-vim.opt.ignorecase = true    
-vim.opt.smartcase = true     
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 -- highlight search
-vim.opt.hlsearch = true     
+vim.opt.hlsearch = true
 
 -- autowrap line when too long
-vim.opt.wrap = true          
+vim.opt.wrap = true
 
 -- Preserve the indentation of a virtual line
-vim.opt.breakindent = true   
+vim.opt.breakindent = true
 
 -- Save undo history
 vim.opt.undofile = true
 
 -- The amount of space on screen a Tab
-vim.opt.tabstop = 2          
+vim.opt.tabstop = 2
 
 -- Amount of characters Neovim will use to indent a line
-vim.opt.shiftwidth = 2       
+vim.opt.shiftwidth = 2
 
 -- transform a Tab character to spaces
-vim.opt.expandtab = true     
+vim.opt.expandtab = true
 
 -- color ui
-vim.opt.termguicolors = true 
+vim.opt.termguicolors = true
 
 -- Decrease update time
 vim.opt.updatetime = 250
@@ -71,12 +75,9 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
--- The options I don't like
--- Sync clipboard between OS and Neovim.
--- vim.opt.clipboard = 'unnamedplus'
 
 -- ==========================================================================
---                                Keybindings    
+--                                Keybindings
 -- Syntax: vim.keymap.set({mode}, {lhs}, {rhs}, {opts})
 -- :help vim.keymap.set
 vim.g.mapleader = ' '       -- Leader key is space
@@ -87,8 +88,10 @@ vim.keymap.set('n', '<leader>a', ':keepjumps normal! ggVG<cr>', {desc='C-A'})
 vim.keymap.set({'n', 'x', 'o'}, '<leader>h', '^', {desc='jump to line start'})
 vim.keymap.set({'n', 'x', 'o'}, '<leader>l', 'g_', {desc='jump to line end'})
 -- Basic clipboard interaction
+-- This may not take effect as I don't know how to provide a provider
 vim.keymap.set({'n', 'x'}, 'gy', '"+y', {desc='Copy to clipboard'})
 vim.keymap.set({'n', 'x'}, 'gp', '"+p', {desc='Paste from clipboard'})
+
 vim.keymap.set({'n'}, '<F3>', '<cmd>Lexplore<cr>')
 -- Commands
 vim.keymap.set('n', '<leader>w', '<cmd>write<cr>', {desc='Save'})
@@ -123,6 +126,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank()
   end,
+})
+-- Delete trailing white space when saved file.
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  pattern = { "*" },
+  command = [[%s/\s\+$//e]],
 })
 
 -- ==========================================================================
@@ -168,7 +176,10 @@ lazy.setup({
   -- List of plugins
   -- Detect tabstop and shiftwidth automatically
   {'echasnovski/mini.nvim', branch = 'stable'},
-  {'folke/tokyonight.nvim'},            -- colorscheme tokyonight
+  -- colorscheme tokyonight
+  {'folke/tokyonight.nvim'},
+  -- colorscheme onedark
+  -- {'navarasu/onedark.nvim'},
   {'folke/which-key.nvim'},
   {'hrsh7th/nvim-cmp'},
   {'hrsh7th/cmp-nvim-lsp'},
@@ -188,8 +199,8 @@ lazy.setup({
 -- ==========================================================================
 --                            Plugins Configuration
 -- ==========================================================================
--- colorscheme tokyonight
-vim.cmd.colorscheme('tokyonight') 
+-- colorscheme
+vim.cmd.colorscheme('tokyonight')
 
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 30
@@ -247,7 +258,7 @@ vim.keymap.set('n', '<leader>fs', '<cmd>Telescope current_buffer_fuzzy_find<cr>'
 require('telescope').load_extension('zf-native')
 
 -- lsp-zero will integrate lspconfig and cmp for you
--- If you wish to do that manually, see the code here: 
+-- If you wish to do that manually, see the code here:
 -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/lsp.md#how-does-it-work
 local lsp_zero = require('lsp-zero')
 
