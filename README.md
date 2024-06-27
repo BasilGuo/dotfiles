@@ -64,6 +64,7 @@ A demo configuration is
     excludesfile = /path/to/.gitignore_global
 ```
 
+<s>
 ## For Neovim
 
 > DIR: ~/.config/nvim
@@ -71,8 +72,12 @@ A demo configuration is
 I'm changing my vim environment to neovim now. The neovim version is no lower than 0.8.
 
 You could just copy the `.config/nvim` dir to `~/.config` directly and typed `nvim` to init it. But your network should connect to github.com.
+However, in this configuration, I failed to use the snippets.
 
 The configuration I used is mainly copied from this airticle: [Build your first Neovim configuration in lua | Devlog](https://vonheikemen.github.io/devlog/tools/build-your-first-lua-config-for-neovim/). The author's nvim configuration is [dotfiles/my-configs/neovim at master · VonHeikemen/dotfiles](https://github.com/VonHeikemen/dotfiles/tree/master/my-configs/neovim). [nvim-lua/kickstart.nvim: A launch point for your personal nvim configuration](https://github.com/nvim-lua/kickstart.nvim) is also recommended by the author.
+
+At the end, I try to use the kickstart instead of maintain my own nvim init.lua.
+</s>
 
 ## For Vim
 

@@ -9,10 +9,10 @@ vim.opt.number = true
 
 -- The options I don't like
 -- Sync clipboard between OS and Neovim.
--- vim.opt.clipboard = 'unnamedplus'
+vim.opt.clipboard = 'unnamedplus'
 
 -- mouse mode: previous mode
--- vim.opt.mouse = 'a'
+vim.opt.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
@@ -171,7 +171,6 @@ end
 -- :echo stdpath('data') .. '/lazy/lazy.nvim'
 lazy.path = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 lazy.opts = {}
-
 lazy.setup({
   -- List of plugins
   -- Detect tabstop and shiftwidth automatically
@@ -185,13 +184,20 @@ lazy.setup({
   {'hrsh7th/cmp-nvim-lsp'},
   {'hrsh7th/cmp-buffer'},
   {'kyazdani42/nvim-web-devicons'},     -- icons
-  {'L3MON4D3/LuaSnip'},
+  {
+      'L3MON4D3/LuaSnip',
+      opts={histoy = true, delete_check_events = "TextChanged",},
+      dependencies = { "rafamadriz/friendly-snippets" },
+      build = "make install_jsregexp",
+  },
   {'nvim-lualine/lualine.nvim'},        -- lualine (statusline)
   {'nvim-lua/plenary.nvim', build = false},
   {'nvim-treesitter/nvim-treesitter'},
   {'nvim-telescope/telescope.nvim', branch = '0.1.x', build = false},
   {'natecraddock/telescope-zf-native.nvim', build = false},
   {'neovim/nvim-lspconfig'},
+  {'rafamadriz/friendly-snippets'},
+  {"saadparwaiz1/cmp_luasnip"},
   {'tpope/vim-sleuth'},
   {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
 })
@@ -274,6 +280,7 @@ end)
 
 local cmp = require('cmp')
 local cmp_action = lsp_zero.cmp_action()
+local date = function() return {os.date('%Y-%m-%d')} end
 
 -- See :help cmp-config
 cmp.setup({
@@ -296,3 +303,41 @@ cmp.setup({
     end,
   },
 })
+
+-- snippets
+local ls = require("luasnip")
+local snippets = require("luasnip.loaders.from_vscode")
+local filetype = vim.bo.filetype
+
+ls.config.set_config({
+    keep_roots = false,
+    link_roots = false,
+    link_children = false,
+    region_check_events = 'InsertEnter',
+    delete_check_events = 'InsertLeave'
+  })
+snippets.lazy_load({ paths = { snippets_path } })
+ls.add_snippets(nil, {
+  all = {
+    ls.snippet({
+      trig = "date",
+      namr = "Date",
+      dscr = "Date in the form of YYYY-MM-DD",
+    }, {
+      ls.function_node(date, {}),
+    }),
+  },
+})
+if vim.fn.argc() > 0 and filetype ~= '' then
+    snippets.load({include = {filetype}})
+end
+
+vim.keymap.set({"i"}, "<C-K>", function() ls.expand() end, {silent = true})
+vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
+vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
+
+vim.keymap.set({"i", "s"}, "<C-E>", function()
+	if ls.choice_active() then
+		ls.change_choice(1)
+	end
+end, {silent = true})
