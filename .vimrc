@@ -1,14 +1,3 @@
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2006 Nov 16
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
-
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
     finish
@@ -22,36 +11,74 @@ set backspace=indent,eol,start
 
 " no temp .swapfile
 " set noswapfile
-
 if has("vms")
-    set nobackup		" do not keep a backup file, use versions instead
+    set nobackup        " do not keep a backup file, use versions instead
 else
-    set backup		" keep a backup file
+    set backup          " keep a backup file
 endif
-set history=50		" keep 50 lines of command line history
-set ruler		    " show the cursor position all the time
-set showcmd		    " display incomplete commands
-set incsearch		" do incremental searching
+set autoread            " reload the file when modified outside vim
+set autowrite           " auto write file
+set confirm             " need confirm when processing unsaved/readonly file
+set backupdir=/tmp      " backup dir
+set dir=/tmp            " directory for vim swap file
 
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
+set history=50          " keep 50 lines of command line history
+set ruler               " show the cursor position all the time
+set showcmd             " display incomplete commands
+set incsearch           " do incremental searching
+set vb t_vb=            " no alarm
+set cmdheight=1         " cmd line height
+set laststatus=2        " display status line always
+set number              " line nubmer
+set relativenumber      " line relative number, e.g. 4,3,2,1,30,1,2,3
+set cursorline          " highlight current cusor line
+set whichwrap+=<,>,h,l  " cursor could be cross lines
+set ttimeoutlen=0       " the <ESC> key response time
+set cindent             " indent in the way of c/c++
+set cinoptions=g0,:0,N-s,(0 " the indent format of c/c++
+set expandtab           " tab => space
+set tabstop=4           " 1 tab = 4 spaces, in editing
+set shiftwidth=4        " 1 tab = 4 spaces, in formatting
+set softtabstop=4       " 4 spaces = 1 tab
+set smarttab            " use tab in the start of line/paragraph
+set backspace=2         " process indent,eol,start,etc. with enter key
+set sidescroll=0        " chars scroll to right
+set sidescrolloff=4     " chars margin to right
+set nofoldenable        " no code folded
+set list lcs=tab:¦\     " enable the align line
 
-" Don't use Ex mode, use Q for formatting
-map Q gq
+" code/file encodings
+set fileencodings=utf-8,gb2312,gbk,gb18030
+set termencoding=utf-8
+set fileformats=unix,dos
+set encoding=utf-8
+
+
+set csprg=/usr/bin/cscope
+set csto=0
+set cst
+set nocsverb
+set colorcolumn=80
+cs add $CSCOPE_DB
+set tags=$CTAGS_DB
+set csverb
 
 " In many terminal emulators the mouse works just fine, thus enable it.
-"set mouse=a
+set mouse=a
 
+" enable term 256 colors
+set t_Co=256
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
-    syntax on
-    set hlsearch
+    syntax on       " syntax highlighting
+    set hlsearch    " highlight search result
+    set incsearch   " incremental search
+    set smartcase   " smartly match the case, case insentive
 endif
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-
     " Enable file type detection.
     " Use the default filetype settings, so that mail gets 'tw' set to 72,
     " 'cindent' is on in C files, etc.
@@ -72,14 +99,17 @@ if has("autocmd")
                     \ if line("'\"") > 0 && line("'\"") <= line("$") |
                     \   exe "normal! g`\"" |
                     \ endif
-
     augroup END
 
 else
-
-    set autoindent		" always set autoindenting on
-
+    set autoindent        " always set autoindenting on
 endif " has("autocmd")
+
+" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
+" let &guioptions = substitute(&guioptions, "t", "", "g")
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
@@ -89,16 +119,6 @@ command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
 colorscheme onedark
 "colorscheme desert
 "colorscheme delek
-set number
-set expandtab
-set tabstop=4
-set shiftwidth=4
-set cino+=:0
-
-set fileencodings=utf-8,gb2312,gbk,gb18030
-set termencoding=utf-8
-set fileformats=unix,dos
-set encoding=utf-8
 
 " reset the expandtab in the kernel source tree.
 let linux = 0
@@ -164,20 +184,9 @@ if has("cscope")
     endwhile
 endif
 
-set csprg=/usr/bin/cscope
-set csto=0
-set cst
-set nocsverb
-set colorcolumn=80
-cs add $CSCOPE_DB
-set tags=$CTAGS_DB
-set csverb
 
 match Todo /\s\+$/
 
-set cursorline " highlight current cusor line
-set backupdir=/tmp " backup dir
-set dir=/tmp  " directory for vim swap file
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""" New File Predefined Text """""""""""""""""""""
@@ -323,6 +332,18 @@ autocmd BufNewFile * normal G
 " let CSCOPE_DB="/path/to/cscope.out"
 " source ~/.vim/cscope_maps.vim
 
+" move cursor in insert mode
+imap <c-j> <down>
+imap <c-k> <up>
+imap <c-l> <right>
+imap <c-h> <left>
+inoremap <c-e> <end>
+inoremap <c-a> <c-o>^
+inoremap <c-d> <del>
+inoremap <c-f> <c-o>W
+inoremap <c-q> <c-o>dd
+
+
 " for tab pages, requires vim version >= 7.0
 let g:mapleader = "\<Space>"
 let g:maplocalleader = ","
@@ -332,3 +353,26 @@ nnoremap <leader>j :tabnext<CR>
 nnoremap <leader>k :tabprevious<CR>
 nnoremap <leader>c :tabclose<CR>
 nnoremap <leader>w :bd<CR>
+nnoremap <leader>f gg=G
+
+" change window width
+nnoremap <c-up> <c-w>+
+nnoremap <c-down> <c-w>-
+nnoremap <c-left> <c-w><
+nnoremap <c-right> <c-w>>
+
+" change window in normal
+nnoremap <c-k> <c-w>k
+nnoremap <c-j> <c-w>j
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <s-up>    <c-w>k
+nnoremap <s-down>  <c-w>j
+nnoremap <s-left>  <c-w>h
+nnoremap <s-right> <c-w>l
+
+" change window location
+nnoremap <c-s-up> <c-w>K
+nnoremap <c-s-down> <c-w>J
+nnoremap <c-s-left> <c-w>H
+nnoremap <c-s-right> <c-w>L
