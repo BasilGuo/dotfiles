@@ -22,6 +22,10 @@ set confirm             " need confirm when processing unsaved/readonly file
 set backupdir=/tmp      " backup dir
 set dir=/tmp            " directory for vim swap file
 
+" In many terminal emulators the mouse works just fine, thus enable it.
+" But it does not work as my expectation. Don't use it.
+" set mouse=a
+
 set history=50          " keep 50 lines of command line history
 set ruler               " show the cursor position all the time
 set showcmd             " display incomplete commands
@@ -30,6 +34,7 @@ set vb t_vb=            " no alarm
 set cmdheight=1         " cmd line height
 set laststatus=2        " display status line always
 set number              " line nubmer
+set colorcolumn=80      " color column 80, an verticle line
 set relativenumber      " line relative number, e.g. 4,3,2,1,30,1,2,3
 set cursorline          " highlight current cusor line
 set whichwrap+=<,>,h,l  " cursor could be cross lines
@@ -56,18 +61,6 @@ set encoding=utf-8
 " open file to display the file with :ex
 set path=**
 set wildmenu
-
-set csprg=/usr/bin/cscope
-set csto=0
-set cst
-set nocsverb
-set colorcolumn=80
-cs add $CSCOPE_DB
-set tags=$CTAGS_DB
-set csverb
-
-" In many terminal emulators the mouse works just fine, thus enable it.
-set mouse=a
 
 " enable term 256 colors
 set t_Co=256
@@ -164,32 +157,12 @@ else
     endwhile
 endif
 
+" remove trailing spaces
 if linux == 0
     autocmd BufWritePre * :%s/\s\+$//e
 endif
 
-let $CSCOPE_DB=$PWD . "/cscope.out"
-let $CTAGS_DB=$PWD . "/tags"
-
-if has("cscope")
-    let current = $PWD
-    let num = 1
-
-    while num < 20
-        if filereadable(current . "/cscope.out")
-            let $CSCOPE_DB = current . "/cscope.out"
-            let $CTAGS_DB = current . "/tags"
-            break
-        else
-            let current = current . "/.."
-            let num = num + 1
-        endif
-    endwhile
-endif
-
-
 match Todo /\s\+$/
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""" New File Predefined Text """""""""""""""""""""
@@ -329,11 +302,6 @@ autocmd BufNewFile * normal G
 "     endif
 "     return l:result
 " endfunction
-
-" for ctags and cscope
-" set tags+=/path/to/tags
-" let CSCOPE_DB="/path/to/cscope.out"
-" source ~/.vim/cscope_maps.vim
 
 " move cursor in insert mode
 imap <c-j> <down>

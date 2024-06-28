@@ -2,8 +2,9 @@
 	ui = true
 [core]
 	pager = less -r
+    excludesfile = ~/.config/git/.gitignore_global
 [user]
-	name = basilguo
+	name = BasilGuo
 	email = basilguo@163.com
 [include]
-    path = ~/.gitalias
+    path = ~/.config/git/.gitalias
