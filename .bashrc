@@ -40,22 +40,36 @@ shopt -s histappend
 # COLOURS! YAAAY!
 export EDITOR=$(which vim)
 
+# Current path
 export PATH=.:${PATH}
 
 # Personal binaries
-export PATH=${PATH}:~/bin:~/.local/bin:~/.local/etc/scripts
+if [ -d ~/bin ]; then
+    export PATH=${PATH}:~/bin
+fi
+if [ -d ~/.local/bin ]; then
+    export PATH=${PATH}:~/.local/bin
+fi
+if [ -d ~/.local/etc/scripts ]
+    export PATH=${PATH}:~/.local/etc/scripts
+fi
 
-# I'd quite like for Go to work please.
-export GOPATH=~
-export PATH=${PATH}:/usr/local/go/bin
+# For GO
+if go version > /dev/null 2>&1; then
+    export GOPATH=~
+    export PATH=${PATH}:/usr/local/go/bin
+fi
 
 # For RUST
-export PATH="${PATH}:$HOME/.cargo/bin"
-if [ -f $HOME/.cargo ]; then
-    . "$HOME/.cargo/env"
+if [ -d $HOME/.cargo ]; then
+    export PATH="${PATH}:$HOME/.cargo/bin"
+    source "$HOME/.cargo/env"
+    alias rc='rustc'
+    alias cg='cargo'
+    alias cgb='cargo build'
+    alias cgc='cargo clean'
+    alias cgr='cargo run'
 fi
-alias cg='cargo'
-alias rc='rustc'
 
 
 ###############################################################################
