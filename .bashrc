@@ -50,7 +50,7 @@ fi
 if [ -d ~/.local/bin ]; then
     export PATH=${PATH}:~/.local/bin
 fi
-if [ -d ~/.local/etc/scripts ]
+if [ -d ~/.local/etc/scripts ]; then
     export PATH=${PATH}:~/.local/etc/scripts
 fi
 
