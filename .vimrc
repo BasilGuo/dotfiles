@@ -303,6 +303,11 @@ autocmd BufNewFile * normal G
 "     return l:result
 " endfunction
 
+" cscope enable
+if has("cscope")
+    call cscope_maps#EnableCscope()
+endif
+
 " move cursor in insert mode
 imap <c-j> <down>
 imap <c-k> <up>
