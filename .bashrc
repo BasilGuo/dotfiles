@@ -56,8 +56,8 @@ fi
 
 # For GO
 if go version > /dev/null 2>&1; then
-    export GOPATH=~
-    export PATH=${PATH}:/usr/local/go/bin
+    export GOPATH=~/.local
+    export PATH=${PATH}:${GOPATH}/bin
 fi
 
 # For RUST

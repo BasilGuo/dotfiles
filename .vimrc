@@ -172,9 +172,24 @@ match Todo /\s\+$/
 " au BufRead,BufNewFile *.txt       setfiletype text
 "
 " Insert the header automatically when crateing .c,.h,.sh,.java files
-autocmd BufNewFile *.cpp,*.hpp,*.[ch],*.sh,*.rb,*.java,*.py,CMakeLists.txt,*.md exec ":call SetTitle()"
+autocmd BufNewFile *.go,*.cpp,*.hpp,*.[ch],*.sh,*.rb,*.java,*.py,CMakeLists.txt,*.md exec ":call SetTitle()"
 func SetTitle()
-    if &filetype == 'sh'
+    if &filetype == 'go'
+        call setline(1,             "// Author:      basilguo@163.com")
+        call append(line(".")+0,    "// Date:        ".strftime("%Y-%m-%d %I:%M:%S"))
+        call append(line(".")+1,    "// File Name:   ".expand("%"))
+        call append(line(".")+2,    "// Version:     0.0.1")
+        call append(line(".")+3,    "// Description: ")
+        call append(line(".")+4,    "")
+        call append(line(".")+5,    "package main")
+        call append(line(".")+6,    "")
+        call append(line(".")+7,    "import (")
+        call append(line(".")+8,    "   \"fmt\"")
+        call append(line(".")+9,    ")")
+        call append(line(".")+10,   "")
+        call append(line(".")+11,   "func main() {")
+        call append(line(".")+12,   "}")
+    elseif &filetype == 'sh'
         call setline(1,             "#!/usr/bin/env bash")
         call append(line(".")+0,    "# Author:      basilguo@163.com")
         call append(line(".")+1,    "# Date:        ".strftime("%Y-%m-%d %I:%M:%S"))
