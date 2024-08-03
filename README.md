@@ -104,11 +104,12 @@ But, don't forget to modify the block of `New File Predefined Text` in `.vimrc`.
 
 > DIR: ~/
 
-- `.config/tmux/.tmux.conf`:
+- `.config/tmux/tmux.conf`:
+- When you use `man tmux`, you would know: "By default, tmux loads the system configuration file from /etc/tmux.conf, if present, then looks for a user configuration file at ~/.tmux.conf, $XDG_CONFIG_HOME/tmux/tmux.conf or ~/.config/tmux/tmux.conf." So in this way, you don't need to source them manually.
 
 1. in a open tmux-session: Ctrl+B(leader key)
-    `:source-file ~/.config/tmux/.tmux.conf`
-2. for global:  `tmux source-file ~/.config/tmux/.tmux.conf`
+    `:source-file ~/.config/tmux/tmux.conf`
+2. for global:  `tmux source-file ~/.config/tmux/tmux.conf`
 
 ## For XTerm
 
