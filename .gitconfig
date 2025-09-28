@@ -3,8 +3,25 @@
 [core]
 	pager = less -r
     excludesfile = ~/.config/git/.gitignore_global
+    editor = vim
+	autocrlf = false
+	quotepath = false
 [user]
 	name = BasilGuo
 	email = basilguo@163.com
 [include]
     path = ~/.config/git/.gitalias
+[push]
+	default = current
+[i18n]
+	commitencoding = utf-8
+	logoutputencoding = utf-8
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	cm = commit
+	pl = pull
+	ps = push
+[pull]
+	rebase = true

@@ -35,7 +35,7 @@ set cmdheight=1         " cmd line height
 set laststatus=2        " display status line always
 set number              " line nubmer
 set colorcolumn=80      " color column 80, an verticle line
-set relativenumber      " line relative number, e.g. 4,3,2,1,30,1,2,3
+" set relativenumber      " line relative number, e.g. 4,3,2,1,30,1,2,3
 set cursorline          " highlight current cusor line
 set whichwrap+=<,>,h,l  " cursor could be cross lines
 set ttimeoutlen=0       " the <ESC> key response time

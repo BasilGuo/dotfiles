@@ -37,6 +37,14 @@ HISTSIZE=100000
 HISTFILESIZE=2000000
 shopt -s histappend
 
+# Language
+## system level languate
+export LANG=en_US.UTF-8
+## gettext preference (usually keep the same as LANG)
+export LANGUAGE=en_US.UTF-8
+## Not Recommend as it will override all LC_* subitems
+# export LC_ALL=en_US.UTF-8
+
 # COLOURS! YAAAY!
 export EDITOR=$(which vim)
 
@@ -54,23 +62,52 @@ if [ -d ~/.local/etc/scripts ]; then
     export PATH=${PATH}:~/.local/etc/scripts
 fi
 
-# For GO
+# GO
 if go version > /dev/null 2>&1; then
-    export GOPATH=~/.local
-    export PATH=${PATH}:${GOPATH}/bin
+    if [ -d ${HOME}/.local/go ]; then
+        export GOPATH=${HOME}/.local/go
+        export PATH=${PATH}:${GOPATH}/bin
+    fi
 fi
 
-# For RUST
-if [ -d $HOME/.cargo ]; then
-    export PATH="${PATH}:$HOME/.cargo/bin"
-    source "$HOME/.cargo/env"
-    alias rc='rustc'
-    alias cg='cargo'
-    alias cgb='cargo build'
-    alias cgc='cargo clean'
-    alias cgr='cargo run'
+# RUST
+if rustc --version > /dev/null 2>&1; then
+    if [ -d ${HOME}/.local/cargo ]; then
+        export PATH="${PATH}:$HOME/.local/cargo/bin"
+        if [ -f "$HOME/.local/cargo/env" ]; then
+            source "$HOME/.local/cargo/env"
+        fi
+        alias rc='rustc'
+        alias cg='cargo'
+        alias cgb='cargo build'
+        alias cgc='cargo clean'
+        alias cgr='cargo run'
+    fi
 fi
 
+# Python
+alias py3='python3'
+## pip
+export PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
+## uv
+if uv --version > /dev/null 2>&1; then
+    export UV_CACHE_DIR=$HOME/.cache/uv
+    export UV_DEFAULT_INDEX=https://pypi.tuna.tsinghua.edu.cn/simple
+    export UV_INDEX=https://pypi.tuna.tsinghua.edu.cn/simple
+    export UV_NO_CACHE=0
+    export UV_HTTP_TIMEOUT=60 # UNIT: s
+fi
+
+# Git
+if git --version > /dev/null 2>&1; then
+    export LESSCHARSET=utf-8
+    alias g='git'
+    alias gs='git status'
+    alias gca='git commit -a'
+    alias gcm='git commit -m'
+    alias gg='git grep -ni'
+    alias gpom='git push -u origin master'
+fi
 
 ###############################################################################
 #                                                                             #
@@ -188,7 +225,6 @@ else
     alias ip='ip --color=auto' # for Ubuntu 18.04 or higher version
 fi
 
-alias py3='python3'
 alias make='make -j4'
 alias remake='make clean; make'
 alias rmtags='rm cscope.* tags'
@@ -206,13 +242,11 @@ alias tls='tmux ls'
 alias ff="firefox"
 alias edge='microsoft-edge-stable'
 
-# Git
-alias g='git'
-alias gs='git status'
-alias gca='git commit -a'
-alias gcm='git commit -m'
-alias gg='git grep -ni'
-alias gpom='git push -u origin master'
+# my space
+alias cdsrc="cd ~/.local/src"
+alias cdbin="cd ~/.local/bin"
+alias cdlib="cd ~/.local/lib"
+alias cdcode="cd ~/code"
 
 ###############################################################################
 #                                                                             #
