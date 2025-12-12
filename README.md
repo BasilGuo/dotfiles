@@ -12,6 +12,11 @@
 
 # dotfiles
 
+## script
+
+You can run `init.sh` when using basic configurations.
+You can run `new-ubuntu.sh` cmd-by-cmd when polishing a new ubuntu VM.
+
 ## For Bash
 
 > DIR: ~/
